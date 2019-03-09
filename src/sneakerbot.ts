@@ -11,7 +11,7 @@ export default class SneakerBot {
     this.browser = null
   }
 
-  private async loadParsers () {
+  private async _loadParsers () {
     const dir = `${__dirname}/parsers`
     const files = readdirSync(dir)
 
@@ -48,7 +48,7 @@ export default class SneakerBot {
     })
 
     try {
-      await this.loadParsers()
+      await this._loadParsers()
     } catch (error) {
       return consola.error(error)
     }
