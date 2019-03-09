@@ -4,65 +4,59 @@ import puppeteer from 'puppeteer'
 import { readdirSync } from 'fs'
 import { USER_AGENT } from './constants'
 
-export default class SneakerBot {
-  browser: puppeteer.Browser | null
+let browser: puppeteer.Browser
 
-  constructor () {
-    this.browser = null
+async function loadParsers () {
+  const dir = `${__dirname}/parsers`
+  const files = readdirSync(dir)
+
+  if (!browser) {
+    throw new Error('Browser cannot be null.')
   }
 
-  private async _loadParsers () {
-    const dir = `${__dirname}/parsers`
-    const files = readdirSync(dir)
-
-    if (!this.browser) {
-      throw new Error('Browser cannot be null.')
-    }
-
-    if (!files.length) {
-      throw new Error('No parsers found.')
-    }
-
-    for (const file of files) {
-      const page = await this.browser.newPage()
-
-      await page.setUserAgent(USER_AGENT)
-      await page.setViewport({
-        width: 1280,
-        height: 720
-      })
-
-      const parser = (await import(`${dir}/${file}`)).default
-      parser(page)
-    }
+  if (!files.length) {
+    throw new Error('No parsers found.')
   }
 
-  async start () {
-    console.clear()
+  for (const file of files) {
+    const page = await browser.newPage()
 
-    this.browser = await puppeteer.launch({
-      args: [
-        '--disable-accelerated-2d-canvas',
-        '--disable-dev-shm-usage',
-        '--disable-gpu',
-        '--disable-setuid-sandbox',
-
-        '--no-sandbox'
-      ]
+    await page.setUserAgent(USER_AGENT)
+    await page.setViewport({
+      width: 1280,
+      height: 720
     })
 
-    try {
-      await this._loadParsers()
-    } catch (error) {
-      return consola.error(error)
-    }
+    const parser = (await import(`${dir}/${file}`)).default
+    parser(page)
+  }
+}
 
-    consola.info('SneakerBot has been started.')
+export async function start () {
+  console.clear()
+
+  browser = await puppeteer.launch({
+    args: [
+      '--disable-accelerated-2d-canvas',
+      '--disable-dev-shm-usage',
+      '--disable-gpu',
+      '--disable-setuid-sandbox',
+
+      '--no-sandbox'
+    ]
+  })
+
+  try {
+    await loadParsers()
+  } catch (error) {
+    return consola.error(error)
   }
 
-  async stop() {
-    if (this.browser) {
-      await this.browser.disconnect()
-    }
+  consola.info('SneakerBot has been started.')
+}
+
+export async function stop() {
+  if (browser) {
+    await browser.disconnect()
   }
 }

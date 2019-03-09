@@ -1,6 +1,4 @@
-import SneakerBot from './sneakerbot'
-
-const sneakerbot = new SneakerBot()
+import * as sneakerbot from './sneakerbot'
 
 // Start SneakerBot
 sneakerbot.start()
