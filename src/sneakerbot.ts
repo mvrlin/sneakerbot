@@ -25,7 +25,12 @@ export default class SneakerBot {
 
     for (const file of files) {
       const page = await this.browser.newPage()
+
       await page.setUserAgent(USER_AGENT)
+      await page.setViewport({
+        width: 1280,
+        height: 720
+      })
 
       const parser = (await import(`${dir}/${file}`)).default
       parser(page)
@@ -42,8 +47,7 @@ export default class SneakerBot {
         '--disable-gpu',
         '--disable-setuid-sandbox',
 
-        '--no-sandbox',
-        '--window-size=1280x720'
+        '--no-sandbox'
       ]
     })
 
