@@ -1,0 +1,22 @@
+{
+  "name": "sneakerbot",
+  "version": "1.0.0",
+  "description": "Keeps track of new goods",
+  "private": true,
+  "scripts": {
+    "build": "tsc -p .",
+    "dev": "nodemon -e ts --watch 'src/**/*.ts' --exec 'ts-node' --files src/index.ts",
+    "start": "node lib/index.js"
+  },
+  "dependencies": {
+    "consola": "^2.5.6",
+    "puppeteer": "^1.13.0"
+  },
+  "devDependencies": {
+    "@types/node": "^11.11.0",
+    "@types/puppeteer": "^1.12.2",
+    "nodemon": "^1.18.10",
+    "ts-node": "^8.0.3",
+    "typescript": "^3.3.3333"
+  }
+}
