@@ -9,6 +9,8 @@
       "es2017"
     ],
 
+    "module": "commonjs",
+
     "noUnusedLocals": true,
     "noUnusedParameters": true,
 
@@ -20,6 +22,7 @@
     "strict": true,
     "sourceMap": true,
 
+    "target": "esnext",
     "typeRoots": [
       "./node_modules/@types"
     ],
