@@ -1,8 +1,11 @@
 import consola from 'consola'
 import puppeteer from 'puppeteer'
 
+import { EventEmitter } from 'events'
 import { readdirSync } from 'fs'
 import { USER_AGENT } from './constants'
+
+const event = new EventEmitter()
 
 let browser: puppeteer.Browser
 
@@ -28,7 +31,7 @@ async function loadParsers () {
     })
 
     const parser = (await import(`${dir}/${file}`)).default
-    parser(page)
+    parser(page, event)
   }
 }
 
