@@ -55,4 +55,10 @@ export default class SneakerBot {
 
     consola.info('SneakerBot has been started.')
   }
+
+  async stop() {
+    if (this.browser) {
+      await this.browser.disconnect()
+    }
+  }
 }
