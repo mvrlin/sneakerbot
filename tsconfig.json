@@ -20,7 +20,6 @@
     "rootDir": "src",
 
     "strict": true,
-    "sourceMap": true,
 
     "target": "esnext",
     "typeRoots": [
