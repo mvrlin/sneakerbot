@@ -1,3 +1,6 @@
+// Default products cache filename
+export const CACHE_PRODUCTS = 'products.json'
+
 // Default cache directory
 export const DIR_CACHE = '.cache'
 
