@@ -55,6 +55,18 @@ export async function start () {
     return consola.error(error)
   }
 
+  event.on('message', message => {
+    consola.ready(message)
+  })
+
+  event.on('new', product => {
+    event.emit('message', `New: ${JSON.stringify(product)}`)
+  })
+
+  event.on('restock', product => {
+    event.emit('message', `Restock: ${JSON.stringify(product)}`)
+  })
+
   consola.info('SneakerBot has been started.')
 }
 
