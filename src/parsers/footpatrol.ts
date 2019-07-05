@@ -98,6 +98,7 @@ export default async function(page: Page, event: EventEmitter) {
         } catch (error) {
           if (error.name === 'TimeoutError') {
             console.log('timeout', product.title)
+            return
           }
 
           await page.screenshot({ path: '.cache/error.png' })
