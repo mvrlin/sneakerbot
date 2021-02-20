@@ -12,7 +12,7 @@ export default async function(page: Page, event: EventEmitter) {
 
   async function fetchProducts() {
     await page.goto(
-      'https://www.footpatrol.com/campaign/New+In/latest/?facet-new=latest&fp_sort_order=latest&max=999&AJAX=1'
+      'https://www.footpatrol.com/footwear/latest/?fp_sort_order=latest&max=999&AJAX=1'
     )
 
     // Check if not in queue
